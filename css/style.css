@@ -43,3 +43,10 @@ section{
 	height: auto;
 	display: block;
 }
+
+#warp{
+	position: relative;
+}
+#warp .box{
+	float: left;
+}
