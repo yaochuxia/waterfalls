@@ -50,3 +50,6 @@ section{
 #warp .box{
 	float: left;
 }
+#content{
+	position: relative;
+}
