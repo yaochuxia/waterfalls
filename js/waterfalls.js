@@ -1,5 +1,16 @@
 $(window).on("load",function(){
-	waterfall();
+	waterfall('warp','box');
+    var dataInt ={'data':[{'src':'img_7.jpg'},{'src':'img_5.jpg'},{'src':'img_3.jpg'},{'src':'img_4.jpg'}]};
+    window.onscroll=function(){
+        if(checkscrollside()){
+            $.each( dataInt.data, function( index, value ){
+                var $oBox = $('<div>').addClass('box').appendTo( $( "#warp" ) );
+                var $oPic = $('<div>').addClass('pic').appendTo( $oBox );
+                $('<img>').attr('src','../images/' + $( value).attr( 'src') ).appendTo($oPic);
+            });
+            waterfall();
+        };
+    }
 })
 
 function waterfall(){
@@ -24,5 +35,13 @@ function waterfall(){
 	            hArr[minHIndex]+= boxs.eq(index).outerHeight();//改变数组的值,最低高元素的高度+刚添加到最低高度下的元素的高度=新的列高;
             }
          })    
+}
 
+
+function checkscrollside(){
+    var boxs = $( "#warp>div" );
+    var lastPinH = boxs.last().get(0).offsetTop + Math.floor(boxs.last().height()/2);//创建【触发添加块框函数waterfall()】的高度：最后一个块框的距离网页顶部+自身高的一半(实现未滚到底就开始加载)
+    var scrollTop = $( window ).scrollTop()//注意解决兼容性
+    var documentH = $( document ).width();//页面高度
+    return (lastPinH < scrollTop + documentH ) ? true : false;//到达指定高度后 返回true，触发waterfall()函数
 }
